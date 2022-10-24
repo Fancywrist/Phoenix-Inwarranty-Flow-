@@ -1,0 +1,1337 @@
+{
+	"info": {
+		"_postman_id": "488ebd44-a076-4562-b39a-6a7436ae7344",
+		"name": "Phoenix Inwarranty Flow",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "11357885"
+	},
+	"item": [
+		{
+			"name": "LoginRequest",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"type": "text/javascript",
+						"exec": [
+							"var responseBody=pm.response.json();\r",
+							"console.log(responseBody.data.token)\r",
+							"pm.collectionVariables.set(\"fdtoken\",responseBody.data.token);\r",
+							"/*\r",
+							"If you join the team what changes you will make in the framework\r",
+							"test\r",
+							"    small -------->Maintainable\r",
+							"    declaration of variables not allowed\r",
+							"    loops not allowed\r",
+							"    conditional  not allowed\r",
+							"    Atleast assertion\r",
+							"    ** Independent \r",
+							"* */\r",
+							"\r",
+							"\r",
+							"pm.test(\"Verify if status code is 200\",function (){\r",
+							"    pm.response.to.have.status(200);\r",
+							"})\r",
+							"\r",
+							"\r",
+							"pm.test(\"verify if the message is success in the response\",function(){\r",
+							"    console.log(responseBody.message);\r",
+							"    //Assertion chai.js \r",
+							"    pm.expect(responseBody.message).to.be.equals(\"Success\");\r",
+							"    pm.expect(responseBody.message).to.be.a(\"String\") //Data Type\r",
+							"\r",
+							"});\r",
+							"\r",
+							"\r",
+							""
+						]
+					}
+				},
+				{
+					"listen": "prerequest",
+					"script": {
+						"type": "text/javascript",
+						"exec": [
+							"pm.variables.set(\"fdUserName\",\"iamfd\")\r",
+							"pm.variables.set(\"fdPassword\",\"password\")"
+						]
+					}
+				}
+			],
+			"request": {
+				"auth": {
+					"type": "apikey",
+					"apikey": [
+						{
+							"key": "key",
+							"value": "Authorization",
+							"type": "string"
+						},
+						{
+							"key": "value",
+							"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6NCwiZmlyc3RfbmFtZSI6ImZkIiwibGFzdF9uYW1lIjoiZmQiLCJsb2dpbl9pZCI6ImlhbWZkIiwibW9iaWxlX251bWJlciI6Ijg4OTk3NzY2NTUiLCJlbWFpbF9pZCI6Im1hcmtAZ21haWwuY29tIiwicGFzc3dvcmQiOiI1ZjRkY2MzYjVhYTc2NWQ2MWQ4MzI3ZGViODgyY2Y5OSIsInJlc2V0X3Bhc3N3b3JkX2RhdGUiOm51bGwsImxvY2tfc3RhdHVzIjowLCJpc19hY3RpdmUiOjEsIm1zdF9yb2xlX2lkIjo1LCJtc3Rfc2VydmljZV9sb2NhdGlvbl9pZCI6MSwiY3JlYXRlZF9hdCI6IjIwMjEtMTEtMDNUMDg6MDY6MjMuMDAwWiIsIm1vZGlmaWVkX2F0IjoiMjAyMS0xMS0wM1QwODowNjoyMy4wMDBaIiwicm9sZV9uYW1lIjoiRnJvbnREZXNrIiwic2VydmljZV9sb2NhdGlvbiI6IlNlcnZpY2UgQ2VudGVyIEEiLCJpYXQiOjE2NjQzODA2ODV9.zoDbqN93UJLFLeJIpI753LO9nOvFq9PdOxmu_p86pHQ",
+							"type": "string"
+						}
+					]
+				},
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"username\": \"{{fdUserName}}\",\r\n    \"password\": \"{{fdPassword}}\"\r\n}"
+				},
+				"url": {
+					"raw": "{{BASEURL}}/v1/login",
+					"host": [
+						"{{BASEURL}}"
+					],
+					"path": [
+						"v1",
+						"login"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "UserDetailsAPIRequest",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"console.log(pm.variables.get(\"X\"));"
+						],
+						"type": "text/javascript"
+					}
+				},
+				{
+					"listen": "prerequest",
+					"script": {
+						"exec": [
+							"pm.variables.set(\"X\", 123);\r",
+							"console.log(pm.variables.get(\"X\"));\r",
+							"pm.collectionVariables.set(\"Y\",100)"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "{{fdtoken}}",
+						"type": "text"
+					},
+					{
+						"key": "Myvariable",
+						"value": "{{X}}",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{{X}}"
+				},
+				"url": {
+					"raw": "http://139.59.91.96:9000/v1/userdetails",
+					"protocol": "http",
+					"host": [
+						"139",
+						"59",
+						"91",
+						"96"
+					],
+					"port": "9000",
+					"path": [
+						"v1",
+						"userdetails"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "CountAPIRequest",
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "{{fdtoken}}",
+						"type": "text"
+					}
+				],
+				"url": {
+					"raw": "http://139.59.91.96:9000/v1/dashboard/count",
+					"protocol": "http",
+					"host": [
+						"139",
+						"59",
+						"91",
+						"96"
+					],
+					"port": "9000",
+					"path": [
+						"v1",
+						"dashboard",
+						"count"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "MasterAPIRequest",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "{{fdtoken}}",
+						"type": "text"
+					}
+				],
+				"url": {
+					"raw": "http://139.59.91.96:9000/v1/master",
+					"protocol": "http",
+					"host": [
+						"139",
+						"59",
+						"91",
+						"96"
+					],
+					"port": "9000",
+					"path": [
+						"v1",
+						"master"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "CreateJOBAPIRequest",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"type": "text/javascript",
+						"exec": [
+							"var responseBody= pm.response.json();\r",
+							"\r",
+							"pm.collectionVariables.set(\"job_id\",responseBody.data.id);\r",
+							"pm.collectionVariables.set(\"job_number\",responseBody.data.job_number);\r",
+							"\r",
+							"pm.test(\"Verify if id is presnet in the response\",function(){\r",
+							"    console.log(responseBody.data.id)\r",
+							"    pm.expect(responseBody.data.id).to.be.greaterThan(0);\r",
+							"})\r",
+							"\r",
+							"pm.test(\"Verify if mst_servicelocation id is 1\",function(){\r",
+							"    console.log(responseBody.data.mst_service_location_id)\r",
+							"    pm.expect(responseBody.data.mst_service_location_id).to.be.eql(1)\r",
+							"})\r",
+							"\r",
+							"pm.test(\"Response time is less than 500ms\", function () {\r",
+							"    pm.expect(pm.response.responseTime).to.be.below(500);\r",
+							"});"
+						]
+					}
+				},
+				{
+					"listen": "prerequest",
+					"script": {
+						"type": "text/javascript",
+						"exec": [
+							"var number = Math.floor((10000000000000+Math.random()*94733535853));\r",
+							"console.log(number);\r",
+							"pm.variables.set(\"imei\",number)\r",
+							"pm.variables.set(\"first_name\",\"ABC\");\r",
+							"pm.variables.set(\"last_name\",\"ABC\");\r",
+							"pm.variables.set(\"mobile_number_alt\",\"9999999999\");\r",
+							"pm.variables.set(\"email_id_alt\",\"ABC@gmail.com\");\r",
+							"pm.variables.set(\"email_id\",\"ABC@gmail.com\");\r",
+							"\r",
+							"\r",
+							"\r",
+							"if(pm.collectionVariables.get(\"localTesting\") === \"true\"){ //Strictly equal\r",
+							"}"
+						]
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					},
+					{
+						"key": "Authorization",
+						"value": "{{fdtoken}}",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"mst_service_location_id\": 0,\r\n    \"mst_platform_id\": 2,\r\n    \"mst_warrenty_status_id\": 1,\r\n    \"mst_oem_id\": 1,\r\n    \"customer\": {\r\n        \"first_name\": \"{{first_name}}\",\r\n        \"last_name\": \"{{last_name}}\",\r\n        \"mobile_number\": \"{{mobile_number}}\",\r\n        \"mobile_number_alt\": \"{{mobile_number_alt}}\",\r\n        \"email_id\": \"{{email_id}}\",\r\n        \"email_id_alt\": \"{{email_id_alt}}\"\r\n    },\r\n    \"customer_address\": {\r\n        \"flat_number\": \"101\",\r\n        \"apartment_name\": \"test\",\r\n        \"street_name\": \"Jupiter C 304 Vasant Galaxy Bangur Nagar\",\r\n        \"landmark\": \"test\",\r\n        \"area\": \"tets\",\r\n        \"pincode\": \"400104\",\r\n        \"country\": \"India\",\r\n        \"state\": \"Maharashtra\"\r\n    },\r\n    \"customer_product\": {\r\n        \"dop\": \"2022-09-19T18:30:00.000Z\",\r\n        \"serial_number\": \"{{imei}}\",\r\n        \"imei1\": \"{{imei}}\",\r\n        \"imei2\": \"{{imei}}\",\r\n        \"popurl\": \"2022-09-19T18:30:00.000Z\",\r\n        \"product_id\": 1,\r\n        \"mst_model_id\": 1\r\n    },\r\n    \"problems\": [\r\n        {\r\n            \"id\": 1,\r\n            \"remark\": \"test\"\r\n        }\r\n    ]\r\n}"
+				},
+				"url": {
+					"raw": "http://139.59.91.96:9000/v1/job/create",
+					"protocol": "http",
+					"host": [
+						"139",
+						"59",
+						"91",
+						"96"
+					],
+					"port": "9000",
+					"path": [
+						"v1",
+						"job",
+						"create"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "SearchJobViaJobNumbersAPIrequest",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Accept",
+						"value": "application/json, text/plain, */*"
+					},
+					{
+						"key": "Accept-Language",
+						"value": "en-US,en;q=0.9"
+					},
+					{
+						"key": "Authorization",
+						"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6NCwiZmlyc3RfbmFtZSI6ImZkIiwibGFzdF9uYW1lIjoiZmQiLCJsb2dpbl9pZCI6ImlhbWZkIiwibW9iaWxlX251bWJlciI6Ijg4OTk3NzY2NTUiLCJlbWFpbF9pZCI6Im1hcmtAZ21haWwuY29tIiwicGFzc3dvcmQiOiI1ZjRkY2MzYjVhYTc2NWQ2MWQ4MzI3ZGViODgyY2Y5OSIsInJlc2V0X3Bhc3N3b3JkX2RhdGUiOm51bGwsImxvY2tfc3RhdHVzIjowLCJpc19hY3RpdmUiOjEsIm1zdF9yb2xlX2lkIjo1LCJtc3Rfc2VydmljZV9sb2NhdGlvbl9pZCI6MSwiY3JlYXRlZF9hdCI6IjIwMjEtMTEtMDNUMDg6MDY6MjMuMDAwWiIsIm1vZGlmaWVkX2F0IjoiMjAyMS0xMS0wM1QwODowNjoyMy4wMDBaIiwicm9sZV9uYW1lIjoiRnJvbnREZXNrIiwic2VydmljZV9sb2NhdGlvbiI6IlNlcnZpY2UgQ2VudGVyIEEiLCJpYXQiOjE2NjYxMTQ4NTV9.MbFUJcSkwUM1JQ-fg3Ul929qrDDjkzyX-U-aB76mJbU"
+					},
+					{
+						"key": "Connection",
+						"value": "keep-alive"
+					},
+					{
+						"key": "Content-Type",
+						"value": "application/json"
+					},
+					{
+						"key": "Origin",
+						"value": "http://www.phoenix.testautomationacademy.in"
+					},
+					{
+						"key": "Referer",
+						"value": "http://www.phoenix.testautomationacademy.in/"
+					},
+					{
+						"key": "User-Agent",
+						"value": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/106.0.0.0 Safari/537.36"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\"searchText\":\"{{job_number}}\"}"
+				},
+				"url": {
+					"raw": "http://139.59.91.96:9000/v1/job/search",
+					"protocol": "http",
+					"host": [
+						"139",
+						"59",
+						"91",
+						"96"
+					],
+					"port": "9000",
+					"path": [
+						"v1",
+						"job",
+						"search"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "JobDetailsAPIRequest",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Accept",
+						"value": "application/json, text/plain, */*",
+						"disabled": true
+					},
+					{
+						"key": "Accept-Language",
+						"value": "en-US,en;q=0.9",
+						"disabled": true
+					},
+					{
+						"key": "Authorization",
+						"value": "{{fdtoken}}"
+					},
+					{
+						"key": "Connection",
+						"value": "keep-alive",
+						"disabled": true
+					},
+					{
+						"key": "Content-Length",
+						"value": "0",
+						"disabled": true
+					},
+					{
+						"key": "Content-Type",
+						"value": "text/plain",
+						"disabled": true
+					},
+					{
+						"key": "Origin",
+						"value": "http://www.phoenix.testautomationacademy.in",
+						"disabled": true
+					},
+					{
+						"key": "Referer",
+						"value": "http://www.phoenix.testautomationacademy.in/",
+						"disabled": true
+					},
+					{
+						"key": "User-Agent",
+						"value": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/105.0.0.0 Safari/537.36",
+						"disabled": true
+					}
+				],
+				"url": {
+					"raw": "http://139.59.91.96:9000/v1/job/details/{{job_number}}",
+					"protocol": "http",
+					"host": [
+						"139",
+						"59",
+						"91",
+						"96"
+					],
+					"port": "9000",
+					"path": [
+						"v1",
+						"job",
+						"details",
+						"{{job_number}}"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "SUPLoginRequest",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"type": "text/javascript",
+						"exec": [
+							"var responseBody=pm.response.json();\r",
+							"console.log(responseBody.data.token)\r",
+							"pm.collectionVariables.set(\"supToken\",responseBody.data.token);"
+						]
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"username\": \"iamsup\",\r\n    \"password\": \"password\"\r\n}"
+				},
+				"url": {
+					"raw": "http://139.59.91.96:9000/v1/login",
+					"protocol": "http",
+					"host": [
+						"139",
+						"59",
+						"91",
+						"96"
+					],
+					"port": "9000",
+					"path": [
+						"v1",
+						"login"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "SupervisorDashboardCountAPIRequest",
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "{{supToken}}",
+						"type": "text"
+					}
+				],
+				"url": {
+					"raw": "http://139.59.91.96:9000/v1/dashboard/count",
+					"protocol": "http",
+					"host": [
+						"139",
+						"59",
+						"91",
+						"96"
+					],
+					"port": "9000",
+					"path": [
+						"v1",
+						"dashboard",
+						"count"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "EngineerMappedRequest",
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "Accept",
+						"value": "application/json, text/plain, */*"
+					},
+					{
+						"key": "Accept-Language",
+						"value": "en-US,en;q=0.9"
+					},
+					{
+						"key": "Authorization",
+						"value": "{{supToken}}"
+					},
+					{
+						"key": "Connection",
+						"value": "keep-alive"
+					},
+					{
+						"key": "Origin",
+						"value": "http://www.phoenix.testautomationacademy.in"
+					},
+					{
+						"key": "Referer",
+						"value": "http://www.phoenix.testautomationacademy.in/"
+					},
+					{
+						"key": "User-Agent",
+						"value": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/105.0.0.0 Safari/537.36"
+					}
+				],
+				"url": {
+					"raw": "http://139.59.91.96:9000/v1/engineer/mapped",
+					"protocol": "http",
+					"host": [
+						"139",
+						"59",
+						"91",
+						"96"
+					],
+					"port": "9000",
+					"path": [
+						"v1",
+						"engineer",
+						"mapped"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "JobPendingAPIRequest",
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "Accept",
+						"value": "application/json, text/plain, */*"
+					},
+					{
+						"key": "Accept-Language",
+						"value": "en-US,en;q=0.9"
+					},
+					{
+						"key": "Authorization",
+						"value": "{{supToken}}"
+					},
+					{
+						"key": "Connection",
+						"value": "keep-alive"
+					},
+					{
+						"key": "If-None-Match",
+						"value": "W/\"1a6a65-NV5Qrqh2Ht00weC8hMUZHkkZseQ\""
+					},
+					{
+						"key": "Origin",
+						"value": "http://www.phoenix.testautomationacademy.in"
+					},
+					{
+						"key": "Referer",
+						"value": "http://www.phoenix.testautomationacademy.in/"
+					},
+					{
+						"key": "User-Agent",
+						"value": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/105.0.0.0 Safari/537.36"
+					}
+				],
+				"url": {
+					"raw": "http://139.59.91.96:9000/v1/job/pending",
+					"protocol": "http",
+					"host": [
+						"139",
+						"59",
+						"91",
+						"96"
+					],
+					"port": "9000",
+					"path": [
+						"v1",
+						"job",
+						"pending"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "AssignJobToEngineerAPIRequest",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Accept",
+						"value": "application/json, text/plain, */*"
+					},
+					{
+						"key": "Accept-Language",
+						"value": "en-US,en;q=0.9"
+					},
+					{
+						"key": "Authorization",
+						"value": "{{supToken}}"
+					},
+					{
+						"key": "Connection",
+						"value": "keep-alive"
+					},
+					{
+						"key": "Content-Type",
+						"value": "application/json"
+					},
+					{
+						"key": "Origin",
+						"value": "http://www.phoenix.testautomationacademy.in"
+					},
+					{
+						"key": "Referer",
+						"value": "http://www.phoenix.testautomationacademy.in/"
+					},
+					{
+						"key": "User-Agent",
+						"value": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/105.0.0.0 Safari/537.36"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"job_id\": {{job_id}},\r\n    \"engineer_id\": 2\r\n}"
+				},
+				"url": {
+					"raw": "http://139.59.91.96:9000/v1/engineer/assign",
+					"protocol": "http",
+					"host": [
+						"139",
+						"59",
+						"91",
+						"96"
+					],
+					"port": "9000",
+					"path": [
+						"v1",
+						"engineer",
+						"assign"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Eng Login Request",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"type": "text/javascript",
+						"exec": [
+							"var responseBody=pm.response.json();\r",
+							"console.log(responseBody.data.token)\r",
+							"pm.collectionVariables.set(\"engtoken\",responseBody.data.token);"
+						]
+					}
+				}
+			],
+			"request": {
+				"auth": {
+					"type": "apikey",
+					"apikey": [
+						{
+							"key": "key",
+							"value": "Authorization",
+							"type": "string"
+						},
+						{
+							"key": "value",
+							"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6NCwiZmlyc3RfbmFtZSI6ImZkIiwibGFzdF9uYW1lIjoiZmQiLCJsb2dpbl9pZCI6ImlhbWZkIiwibW9iaWxlX251bWJlciI6Ijg4OTk3NzY2NTUiLCJlbWFpbF9pZCI6Im1hcmtAZ21haWwuY29tIiwicGFzc3dvcmQiOiI1ZjRkY2MzYjVhYTc2NWQ2MWQ4MzI3ZGViODgyY2Y5OSIsInJlc2V0X3Bhc3N3b3JkX2RhdGUiOm51bGwsImxvY2tfc3RhdHVzIjowLCJpc19hY3RpdmUiOjEsIm1zdF9yb2xlX2lkIjo1LCJtc3Rfc2VydmljZV9sb2NhdGlvbl9pZCI6MSwiY3JlYXRlZF9hdCI6IjIwMjEtMTEtMDNUMDg6MDY6MjMuMDAwWiIsIm1vZGlmaWVkX2F0IjoiMjAyMS0xMS0wM1QwODowNjoyMy4wMDBaIiwicm9sZV9uYW1lIjoiRnJvbnREZXNrIiwic2VydmljZV9sb2NhdGlvbiI6IlNlcnZpY2UgQ2VudGVyIEEiLCJpYXQiOjE2NjQzODA2ODV9.zoDbqN93UJLFLeJIpI753LO9nOvFq9PdOxmu_p86pHQ",
+							"type": "string"
+						}
+					]
+				},
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"username\": \"iameng\",\r\n    \"password\": \"password\"\r\n}"
+				},
+				"url": {
+					"raw": "http://139.59.91.96:9000/v1/login",
+					"protocol": "http",
+					"host": [
+						"139",
+						"59",
+						"91",
+						"96"
+					],
+					"port": "9000",
+					"path": [
+						"v1",
+						"login"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "EngineerJobListRequest",
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "Accept",
+						"value": "application/json, text/plain, */*"
+					},
+					{
+						"key": "Accept-Language",
+						"value": "en-US,en;q=0.9"
+					},
+					{
+						"key": "Authorization",
+						"value": "{{engtoken}}"
+					},
+					{
+						"key": "Connection",
+						"value": "keep-alive"
+					},
+					{
+						"key": "Origin",
+						"value": "http://www.phoenix.testautomationacademy.in"
+					},
+					{
+						"key": "Referer",
+						"value": "http://www.phoenix.testautomationacademy.in/"
+					},
+					{
+						"key": "User-Agent",
+						"value": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/106.0.0.0 Safari/537.36"
+					}
+				],
+				"url": {
+					"raw": "http://139.59.91.96:9000/v1/engineer/myjobs",
+					"protocol": "http",
+					"host": [
+						"139",
+						"59",
+						"91",
+						"96"
+					],
+					"port": "9000",
+					"path": [
+						"v1",
+						"engineer",
+						"myjobs"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "RepairCompleteRequest",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Accept",
+						"value": "application/json, text/plain, */*"
+					},
+					{
+						"key": "Accept-Language",
+						"value": "en-US,en;q=0.9"
+					},
+					{
+						"key": "Authorization",
+						"value": "{{engtoken}}"
+					},
+					{
+						"key": "Connection",
+						"value": "keep-alive"
+					},
+					{
+						"key": "Content-Type",
+						"value": "application/json"
+					},
+					{
+						"key": "Origin",
+						"value": "http://www.phoenix.testautomationacademy.in"
+					},
+					{
+						"key": "Referer",
+						"value": "http://www.phoenix.testautomationacademy.in/"
+					},
+					{
+						"key": "User-Agent",
+						"value": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/106.0.0.0 Safari/537.36"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"job_id\": {{job_id}},\r\n    \"problems\": [\r\n        {\r\n            \"id\": 2,\r\n            \"remark\": \"fixed\"\r\n        }\r\n    ]\r\n}"
+				},
+				"url": {
+					"raw": "http://139.59.91.96:9000/v1/engineer/repaircomplete",
+					"protocol": "http",
+					"host": [
+						"139",
+						"59",
+						"91",
+						"96"
+					],
+					"port": "9000",
+					"path": [
+						"v1",
+						"engineer",
+						"repaircomplete"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "QCLoginAPIRequest",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"type": "text/javascript",
+						"exec": [
+							"var responseBody=pm.response.json();\r",
+							"console.log(responseBody.data.token)\r",
+							"pm.collectionVariables.set(\"qctoken\",responseBody.data.token);"
+						]
+					}
+				}
+			],
+			"request": {
+				"auth": {
+					"type": "apikey",
+					"apikey": [
+						{
+							"key": "key",
+							"value": "Authorization",
+							"type": "string"
+						},
+						{
+							"key": "value",
+							"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6NCwiZmlyc3RfbmFtZSI6ImZkIiwibGFzdF9uYW1lIjoiZmQiLCJsb2dpbl9pZCI6ImlhbWZkIiwibW9iaWxlX251bWJlciI6Ijg4OTk3NzY2NTUiLCJlbWFpbF9pZCI6Im1hcmtAZ21haWwuY29tIiwicGFzc3dvcmQiOiI1ZjRkY2MzYjVhYTc2NWQ2MWQ4MzI3ZGViODgyY2Y5OSIsInJlc2V0X3Bhc3N3b3JkX2RhdGUiOm51bGwsImxvY2tfc3RhdHVzIjowLCJpc19hY3RpdmUiOjEsIm1zdF9yb2xlX2lkIjo1LCJtc3Rfc2VydmljZV9sb2NhdGlvbl9pZCI6MSwiY3JlYXRlZF9hdCI6IjIwMjEtMTEtMDNUMDg6MDY6MjMuMDAwWiIsIm1vZGlmaWVkX2F0IjoiMjAyMS0xMS0wM1QwODowNjoyMy4wMDBaIiwicm9sZV9uYW1lIjoiRnJvbnREZXNrIiwic2VydmljZV9sb2NhdGlvbiI6IlNlcnZpY2UgQ2VudGVyIEEiLCJpYXQiOjE2NjQzODA2ODV9.zoDbqN93UJLFLeJIpI753LO9nOvFq9PdOxmu_p86pHQ",
+							"type": "string"
+						}
+					]
+				},
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"username\": \"iamqc\",\r\n    \"password\": \"password\"\r\n}"
+				},
+				"url": {
+					"raw": "http://139.59.91.96:9000/v1/login",
+					"protocol": "http",
+					"host": [
+						"139",
+						"59",
+						"91",
+						"96"
+					],
+					"port": "9000",
+					"path": [
+						"v1",
+						"login"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "QCJobsRequest",
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "Accept",
+						"value": "application/json, text/plain, */*"
+					},
+					{
+						"key": "Accept-Language",
+						"value": "en-US,en;q=0.9"
+					},
+					{
+						"key": "Authorization",
+						"value": "{{qctoken}}"
+					},
+					{
+						"key": "Connection",
+						"value": "keep-alive"
+					},
+					{
+						"key": "If-None-Match",
+						"value": "W/\"6cff-NF90nuZmI/81eYZmz1jgOPB3eNo\""
+					},
+					{
+						"key": "Origin",
+						"value": "http://www.phoenix.testautomationacademy.in"
+					},
+					{
+						"key": "Referer",
+						"value": "http://www.phoenix.testautomationacademy.in/"
+					},
+					{
+						"key": "User-Agent",
+						"value": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/106.0.0.0 Safari/537.36"
+					}
+				],
+				"url": {
+					"raw": "http://139.59.91.96:9000/v1/qc",
+					"protocol": "http",
+					"host": [
+						"139",
+						"59",
+						"91",
+						"96"
+					],
+					"port": "9000",
+					"path": [
+						"v1",
+						"qc"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "QC_CompleteRequest",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Accept",
+						"value": "application/json, text/plain, */*"
+					},
+					{
+						"key": "Accept-Language",
+						"value": "en-US,en;q=0.9"
+					},
+					{
+						"key": "Authorization",
+						"value": "{{qctoken}}"
+					},
+					{
+						"key": "Connection",
+						"value": "keep-alive"
+					},
+					{
+						"key": "Content-Type",
+						"value": "application/json"
+					},
+					{
+						"key": "Origin",
+						"value": "http://www.phoenix.testautomationacademy.in"
+					},
+					{
+						"key": "Referer",
+						"value": "http://www.phoenix.testautomationacademy.in/"
+					},
+					{
+						"key": "User-Agent",
+						"value": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/106.0.0.0 Safari/537.36"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"job_id\":{{job_id}}\r\n}"
+				},
+				"url": {
+					"raw": "http://139.59.91.96:9000/v1/qc",
+					"protocol": "http",
+					"host": [
+						"139",
+						"59",
+						"91",
+						"96"
+					],
+					"port": "9000",
+					"path": [
+						"v1",
+						"qc"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "ReadyfordeliveryRequest",
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "Accept",
+						"value": "application/json, text/plain, */*"
+					},
+					{
+						"key": "Accept-Language",
+						"value": "en-US,en;q=0.9"
+					},
+					{
+						"key": "Authorization",
+						"value": "{{fdtoken}}"
+					},
+					{
+						"key": "Connection",
+						"value": "keep-alive"
+					},
+					{
+						"key": "Origin",
+						"value": "http://www.phoenix.testautomationacademy.in"
+					},
+					{
+						"key": "Referer",
+						"value": "http://www.phoenix.testautomationacademy.in/"
+					},
+					{
+						"key": "User-Agent",
+						"value": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/106.0.0.0 Safari/537.36"
+					}
+				],
+				"url": {
+					"raw": "http://139.59.91.96:9000/v1/fd/readyfordelivery",
+					"protocol": "http",
+					"host": [
+						"139",
+						"59",
+						"91",
+						"96"
+					],
+					"port": "9000",
+					"path": [
+						"v1",
+						"fd",
+						"readyfordelivery"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "DelivertocustomerRequest",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Accept",
+						"value": "application/json, text/plain, */*"
+					},
+					{
+						"key": "Accept-Language",
+						"value": "en-US,en;q=0.9"
+					},
+					{
+						"key": "Authorization",
+						"value": "{{fdtoken}}"
+					},
+					{
+						"key": "Connection",
+						"value": "keep-alive"
+					},
+					{
+						"key": "Content-Type",
+						"value": "application/json"
+					},
+					{
+						"key": "Origin",
+						"value": "http://www.phoenix.testautomationacademy.in"
+					},
+					{
+						"key": "Referer",
+						"value": "http://www.phoenix.testautomationacademy.in/"
+					},
+					{
+						"key": "User-Agent",
+						"value": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/106.0.0.0 Safari/537.36"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\"job_id\":{{job_id}}}"
+				},
+				"url": {
+					"raw": "http://139.59.91.96:9000/v1/fd/delivertocustomer",
+					"protocol": "http",
+					"host": [
+						"139",
+						"59",
+						"91",
+						"96"
+					],
+					"port": "9000",
+					"path": [
+						"v1",
+						"fd",
+						"delivertocustomer"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "CHAI JS Assertions Example",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"type": "text/javascript",
+						"exec": [
+							"pm.test(\"If 100 equal to 200\", function(){  \r",
+							"    pm.expect(100).to.eql(200);  \r",
+							"});  \r",
+							"\r",
+							"pm.test(\"Array Check included\", function(){  \r",
+							"pm.expect([100,200,300]).to.include(300);  \r",
+							"});  \r",
+							"\r",
+							"pm.test(\"Verify Sub String\", function(){  \r",
+							"pm.expect('foobar').to.include('foo');\r",
+							"}); \r",
+							"\r",
+							"pm.test(\"Verify Length Of String\", function(){  \r",
+							"pm.expect('foo').to.have.lengthOf(3)\r",
+							"}); \r",
+							"\r",
+							"pm.test(\"Verify JSON property\", function(){  \r",
+							"pm.expect({a: 1}).to.have.property('a');\r",
+							"}); \r",
+							"\r",
+							"pm.test(\"Verify Data Type\", function(){  \r",
+							"pm.expect('foo').to.be.a('string'); \r",
+							"pm.expect(10).to.be.a('number')\r",
+							"\r",
+							"}); \r",
+							"\r",
+							"\r",
+							"pm.test(\"Compare JSon Object\", function(){  \r",
+							"let x= {  \r",
+							"\"name\" : \"Nikita\" ,\r",
+							"\"age\" : \"10\"  \r",
+							"};  \r",
+							"  \r",
+							"let y= {  \r",
+							"\"name\"  : \"Nikita\" ,\r",
+							"\"age\" : \"10\"  \r",
+							"};  \r",
+							"  \r",
+							"pm.expect(x).to.eql(y);  \r",
+							"});\r",
+							"\r",
+							"pm.test(\"Response time is less than 200ms\", function () {\r",
+							"    pm.expect(pm.response.responseTime).to.be.below(200);\r",
+							"});\r",
+							"\r",
+							"pm.test(\"Status code is 200\", function () {\r",
+							"    pm.response.to.have.status(200);\r",
+							"});\r",
+							"\r",
+							"\r",
+							"pm.test(\"Successful POST request\", function () {\r",
+							"    pm.expect(pm.response.code).to.be.oneOf([201, 202]);\r",
+							"});"
+						]
+					}
+				}
+			],
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "Accept",
+						"value": "application/json, text/plain, */*"
+					},
+					{
+						"key": "Accept-Language",
+						"value": "en-US,en;q=0.9"
+					},
+					{
+						"key": "Authorization",
+						"value": "{{fdtoken}}"
+					},
+					{
+						"key": "Connection",
+						"value": "keep-alive"
+					},
+					{
+						"key": "Content-Type",
+						"value": "application/json"
+					},
+					{
+						"key": "Origin",
+						"value": "http://www.phoenix.testautomationacademy.in"
+					},
+					{
+						"key": "Referer",
+						"value": "http://www.phoenix.testautomationacademy.in/"
+					},
+					{
+						"key": "User-Agent",
+						"value": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/106.0.0.0 Safari/537.36"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": ""
+				},
+				"url": {
+					"raw": "http://www.google.com",
+					"protocol": "http",
+					"host": [
+						"www",
+						"google",
+						"com"
+					]
+				}
+			},
+			"response": []
+		}
+	],
+	"event": [
+		{
+			"listen": "prerequest",
+			"script": {
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		},
+		{
+			"listen": "test",
+			"script": {
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		}
+	],
+	"variable": [
+		{
+			"key": "fdtoken",
+			"value": ""
+		},
+		{
+			"key": "job_id",
+			"value": ""
+		},
+		{
+			"key": "job_number",
+			"value": ""
+		},
+		{
+			"key": "supToken",
+			"value": ""
+		},
+		{
+			"key": "engtoken",
+			"value": ""
+		},
+		{
+			"key": "qctoken",
+			"value": ""
+		},
+		{
+			"key": "Y",
+			"value": ""
+		},
+		{
+			"key": "localTesting",
+			"value": "false",
+			"type": "string"
+		},
+		{
+			"key": "BASEURL",
+			"value": "",
+			"type": "string"
+		}
+	]
+}

@@ -1,0 +1,5 @@
+npm audit fix --force
+
+/newman
+:wq
+
